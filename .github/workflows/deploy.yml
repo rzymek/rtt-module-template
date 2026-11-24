@@ -23,6 +23,8 @@ env:
 
 jobs:
   deploy:
+    # The template itself is not deployed: pnpm rename deletes these two lines.
+    if: false  # until pnpm rename
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

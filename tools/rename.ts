@@ -17,7 +17,9 @@ for (const file of FILES) {
   const renamed = text
     .replaceAll("module-template", id)
     .replaceAll("Module Template", file.endsWith(".sql") ? title.replaceAll("'", "''") : title)
-    .replace(/(values \( '[^']*', '[^']*', )\d+( \);)/, `$1${bgg}$2`)
+    .replace(/(values \( '(?:[^']|'')*', '(?:[^']|'')*', )\d+( \);)/, `$1${bgg}$2`)
+    // The deploy workflow is off in the template (see deploy.yml): on for the game.
+    .replace(/^.*# The template itself is not deployed.*\n.*# until pnpm rename\n/m, "")
   if (renamed !== text) {
     writeFileSync(path, renamed)
     console.log(`${file}: renamed`)
