@@ -1,0 +1,6 @@
+{
+  "rough": ["woods"],
+  "red_start": ["hills", "village"],
+  "blue_start": ["woods", "mill"],
+  "river": ["farm|ford"]
+}

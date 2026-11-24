@@ -1,0 +1,76 @@
+<svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 712" width="770" height="712">
+  <defs><polygon id="hexTemplate" points="60.00,0.00 30.00,52.00 -30.00,52.00 -60.00,0.00 -30.00,-52.00 30.00,-52.00"/></defs>
+  <rect id="mapbg" width="770" height="712"/>
+  <g id="spaces">
+    <use id="0101" data-anchor="70,70" href="#hexTemplate" transform="translate(70.00 70.00)"/>
+    <use id="0102" data-anchor="70,174" href="#hexTemplate" transform="translate(70.00 174.00)"/>
+    <use id="0103" data-anchor="70,278" href="#hexTemplate" transform="translate(70.00 278.00)"/>
+    <use id="0104" data-anchor="70,382" href="#hexTemplate" transform="translate(70.00 382.00)"/>
+    <use id="0105" data-anchor="70,486" href="#hexTemplate" transform="translate(70.00 486.00)"/>
+    <use id="0106" data-anchor="70,590" href="#hexTemplate" transform="translate(70.00 590.00)"/>
+    <use id="0201" data-anchor="160,122" href="#hexTemplate" transform="translate(160.00 122.00)"/>
+    <use id="0202" data-anchor="160,226" href="#hexTemplate" transform="translate(160.00 226.00)"/>
+    <use id="0203" data-anchor="160,330" href="#hexTemplate" transform="translate(160.00 330.00)"/>
+    <use id="0204" data-anchor="160,434" href="#hexTemplate" transform="translate(160.00 434.00)"/>
+    <use id="0205" data-anchor="160,538" href="#hexTemplate" transform="translate(160.00 538.00)"/>
+    <use id="0206" data-anchor="160,642" href="#hexTemplate" transform="translate(160.00 642.00)"/>
+    <use id="0301" data-anchor="250,70" href="#hexTemplate" transform="translate(250.00 70.00)"/>
+    <use id="0302" data-anchor="250,174" href="#hexTemplate" transform="translate(250.00 174.00)"/>
+    <use id="0303" data-anchor="250,278" href="#hexTemplate" transform="translate(250.00 278.00)"/>
+    <use id="0304" data-anchor="250,382" href="#hexTemplate" transform="translate(250.00 382.00)"/>
+    <use id="0305" data-anchor="250,486" href="#hexTemplate" transform="translate(250.00 486.00)"/>
+    <use id="0306" data-anchor="250,590" href="#hexTemplate" transform="translate(250.00 590.00)"/>
+    <use id="0401" data-anchor="340,122" href="#hexTemplate" transform="translate(340.00 122.00)"/>
+    <use id="0402" data-anchor="340,226" href="#hexTemplate" transform="translate(340.00 226.00)"/>
+    <use id="0403" data-anchor="340,330" href="#hexTemplate" transform="translate(340.00 330.00)"/>
+    <use id="0404" data-anchor="340,434" href="#hexTemplate" transform="translate(340.00 434.00)"/>
+    <use id="0405" data-anchor="340,538" href="#hexTemplate" transform="translate(340.00 538.00)"/>
+    <use id="0406" data-anchor="340,642" href="#hexTemplate" transform="translate(340.00 642.00)"/>
+    <use id="0501" data-anchor="430,70" href="#hexTemplate" transform="translate(430.00 70.00)"/>
+    <use id="0502" data-anchor="430,174" href="#hexTemplate" transform="translate(430.00 174.00)"/>
+    <use id="0503" data-anchor="430,278" href="#hexTemplate" transform="translate(430.00 278.00)"/>
+    <use id="0504" data-anchor="430,382" href="#hexTemplate" transform="translate(430.00 382.00)"/>
+    <use id="0505" data-anchor="430,486" href="#hexTemplate" transform="translate(430.00 486.00)"/>
+    <use id="0506" data-anchor="430,590" href="#hexTemplate" transform="translate(430.00 590.00)"/>
+    <use id="0601" data-anchor="520,122" href="#hexTemplate" transform="translate(520.00 122.00)"/>
+    <use id="0602" data-anchor="520,226" href="#hexTemplate" transform="translate(520.00 226.00)"/>
+    <use id="0603" data-anchor="520,330" href="#hexTemplate" transform="translate(520.00 330.00)"/>
+    <use id="0604" data-anchor="520,434" href="#hexTemplate" transform="translate(520.00 434.00)"/>
+    <use id="0605" data-anchor="520,538" href="#hexTemplate" transform="translate(520.00 538.00)"/>
+    <use id="0606" data-anchor="520,642" href="#hexTemplate" transform="translate(520.00 642.00)"/>
+    <use id="0701" data-anchor="610,70" href="#hexTemplate" transform="translate(610.00 70.00)"/>
+    <use id="0702" data-anchor="610,174" href="#hexTemplate" transform="translate(610.00 174.00)"/>
+    <use id="0703" data-anchor="610,278" href="#hexTemplate" transform="translate(610.00 278.00)"/>
+    <use id="0704" data-anchor="610,382" href="#hexTemplate" transform="translate(610.00 382.00)"/>
+    <use id="0705" data-anchor="610,486" href="#hexTemplate" transform="translate(610.00 486.00)"/>
+    <use id="0706" data-anchor="610,590" href="#hexTemplate" transform="translate(610.00 590.00)"/>
+    <use id="0801" data-anchor="700,122" href="#hexTemplate" transform="translate(700.00 122.00)"/>
+    <use id="0802" data-anchor="700,226" href="#hexTemplate" transform="translate(700.00 226.00)"/>
+    <use id="0803" data-anchor="700,330" href="#hexTemplate" transform="translate(700.00 330.00)"/>
+    <use id="0804" data-anchor="700,434" href="#hexTemplate" transform="translate(700.00 434.00)"/>
+    <use id="0805" data-anchor="700,538" href="#hexTemplate" transform="translate(700.00 538.00)"/>
+    <use id="0806" data-anchor="700,642" href="#hexTemplate" transform="translate(700.00 642.00)"/>
+  </g>
+  <g id="terrain-overlay">
+    <g class="terrain-rough" fill="#8b5a2b" fill-opacity="0.5" stroke="none"><title>Rough</title>
+      <g transform="translate(250 278) scale(0.85) translate(-250 -278)"><use href="#hexTemplate" transform="translate(250.00 278.00)"/></g>
+      <g transform="translate(250 382) scale(0.85) translate(-250 -382)"><use href="#hexTemplate" transform="translate(250.00 382.00)"/></g>
+      <g transform="translate(340 226) scale(0.85) translate(-340 -226)"><use href="#hexTemplate" transform="translate(340.00 226.00)"/></g>
+      <g transform="translate(430 486) scale(0.85) translate(-430 -486)"><use href="#hexTemplate" transform="translate(430.00 486.00)"/></g>
+      <g transform="translate(520 330) scale(0.85) translate(-520 -330)"><use href="#hexTemplate" transform="translate(520.00 330.00)"/></g>
+      <g transform="translate(520 434) scale(0.85) translate(-520 -434)"><use href="#hexTemplate" transform="translate(520.00 434.00)"/></g>
+    </g>
+    <g class="terrain-red_start" fill="#d22" fill-opacity="0.5" stroke="none"><title>Red set-up</title>
+      <g transform="translate(70 174) scale(0.45) translate(-70 -174)"><use href="#hexTemplate" transform="translate(70.00 174.00)"/></g>
+      <g transform="translate(70 382) scale(0.45) translate(-70 -382)"><use href="#hexTemplate" transform="translate(70.00 382.00)"/></g>
+      <g transform="translate(160 122) scale(0.45) translate(-160 -122)"><use href="#hexTemplate" transform="translate(160.00 122.00)"/></g>
+    </g>
+    <g class="terrain-blue_start" fill="#22d" fill-opacity="0.5" stroke="none"><title>Blue set-up</title>
+      <g transform="translate(610 486) scale(0.45) translate(-610 -486)"><use href="#hexTemplate" transform="translate(610.00 486.00)"/></g>
+      <g transform="translate(700 226) scale(0.45) translate(-700 -226)"><use href="#hexTemplate" transform="translate(700.00 226.00)"/></g>
+      <g transform="translate(700 434) scale(0.45) translate(-700 -434)"><use href="#hexTemplate" transform="translate(700.00 434.00)"/></g>
+    </g>
+    <path class="terrain-river" d="M369.92 69.9L400.08 122.1M400.08 121.9L369.92 174.1M369.92 173.9L400.08 226.1M400.08 225.9L369.92 278.1M369.92 277.9L400.08 330.1M400.08 329.9L369.92 382.1M369.92 485.9L400.08 538.1M400.08 537.9L369.92 590.1M369.92 589.9L400.08 642.1" stroke="#1e90ff" stroke-width="8" stroke-linecap="round" fill="none"><title>River</title></path>
+  </g>
+  <g id="pieces"></g>
+</svg>

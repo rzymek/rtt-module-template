@@ -1,0 +1,107 @@
+/* The map */
+
+#mapbg {
+	fill: #e8dfc4;
+}
+
+#spaces > * {
+	fill: transparent;
+	stroke: #0003;
+	stroke-width: 1.5;
+}
+
+#spaces > .legal-move_space {
+	fill: #fff6a0;
+	fill-opacity: 0.5;
+	stroke: #b08a00;
+	stroke-width: 3;
+	cursor: pointer;
+}
+
+#spaces > .log-focus {
+	fill: gold;
+	fill-opacity: 0.5;
+	outline: none;
+}
+
+/* Terrain overlay: hidden until the menu shows it. */
+#terrain-overlay {
+	display: none;
+	pointer-events: none;
+}
+
+body.show-terrain #terrain-overlay {
+	display: inline;
+}
+
+/* Pieces */
+
+body.hide-pieces #pieces {
+	display: none;
+}
+
+.piece rect {
+	stroke: #000;
+	stroke-width: 1.5;
+}
+
+.piece.side-red rect { fill: #c0392b; }
+.piece.side-blue rect { fill: #2c5aa0; }
+
+.piece text {
+	fill: white;
+	text-anchor: middle;
+	font: bold 11px sans-serif;
+	pointer-events: none;
+}
+
+.piece text.strength {
+	font-size: 18px;
+}
+
+.piece.moved rect {
+	filter: brightness(0.7);
+}
+
+.piece.legal-select_piece, .piece.legal-attack_piece {
+	cursor: pointer;
+}
+
+.piece.legal-select_piece rect {
+	stroke: #fff;
+	stroke-width: 3;
+}
+
+.piece.legal-attack_piece rect, .piece.target rect {
+	stroke: #ff3030;
+	stroke-width: 4;
+}
+
+.piece.selected rect {
+	stroke: gold;
+	stroke-width: 5;
+}
+
+/* Log */
+
+#log .h1 {
+	font-weight: bold;
+	background-color: #d9cfae;
+	padding: 2px 4px;
+	margin-top: 8px;
+}
+
+#log .h2 {
+	font-weight: bold;
+	padding-top: 4px;
+}
+
+#log .hit { color: #a01010; }
+#log .miss { color: #555; }
+#log .loss { font-weight: bold; }
+#log .side { font-weight: bold; }
+
+/* Roles */
+
+.role.Red { background-color: #e8b0a8; }
+.role.Blue { background-color: #a8bce8; }

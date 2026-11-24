@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A sample for the area pipeline (pnpm gen:map:area): replace it with the game's areas, drawn over its map. -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     width="600" height="400" viewBox="0 0 600 400">
+  <g id="areas" inkscape:label="areas" inkscape:groupmode="layer" fill="none" stroke="#000">
+    <path id="hills" inkscape:label="The Hills" d="M 20,20 L 220,20 L 200,200 L 20,180 Z"/>
+    <path id="farm" inkscape:label="Farm" d="M 220,20 L 400,20 L 380,190 L 200,200 Z"/>
+    <path id="woods" inkscape:label="Woods" d="M 400,20 L 580,20 L 580,200 L 380,190 Z"/>
+    <path id="village" inkscape:label="Village" d="M 20,180 L 200,200 L 220,380 L 20,380 Z"/>
+    <path id="ford" inkscape:label="The Ford" d="M 200,200 L 380,190 L 400,380 L 220,380 Z"/>
+    <path id="mill" inkscape:label="Mill" d="M 380,190 L 580,200 L 580,380 L 400,380 Z"/>
+  </g>
+</svg>

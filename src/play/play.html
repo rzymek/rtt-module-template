@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Module Template</title>
+    <load src="node_modules/@rzymek/rally-the-troops-module/client/head.html"/>
+    <script defer type="module" src="./play.ts"></script>
+    <link rel="stylesheet" href="./play.css">
+</head>
+<body>
+
+<load src="node_modules/@rzymek/rally-the-troops-module/client/header.html"/>
+
+<load src="node_modules/@rzymek/rally-the-troops-module/client/aside.html"/>
+
+<!-- The map's size is written here by gen-map. -->
+<main data-map-width="770" data-map-height="712" data-min-zoom="0.5" data-max-zoom="3">
+    <div id="mapwrap" style="width: 770px; height: 712px">
+        <!--suppress CheckEmptyScriptTag -->
+        <load src="./map.svg"/>
+    </div>
+</main>
+
+<load src="node_modules/@rzymek/rally-the-troops-module/client/footer.html"/>
+
+</body>
+</html>
