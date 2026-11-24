@@ -1,4 +1,4 @@
-name: Build and deploy
+name: Build, check and deploy
 
 on:
   push:
@@ -13,8 +13,8 @@ concurrency:
   group: deploy
   cancel-in-progress: false
 
-# DEPLOY_HOST, DEPLOY_SSH_KEY and DEPLOY_KNOWN_HOSTS are set by
-# 04-module-deploy-key.sh from the deploy-oracle repository.
+# Builds and checks every push. Deploys only where the repository has the DEPLOY_HOST variable and the DEPLOY_SSH_KEY
+# and DEPLOY_KNOWN_HOSTS secrets: an ssh key whose server side accepts a tarball of the module.
 env:
   DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
   # Stands in for the server checkout: the build goes to $RTT_DIR/public/module-template.
@@ -44,6 +44,7 @@ jobs:
       - run: mkdir -p "$RTT_DIR/public" && pnpm run build
 
       - name: Deploy
+        if: vars.DEPLOY_HOST != ''
         env:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
@@ -60,4 +61,5 @@ jobs:
             "rtt-deploy@$DEPLOY_HOST"
 
       - name: Check the site
+        if: vars.DEPLOY_HOST != ''
         run: curl -fsS -o /dev/null -m 20 "https://$DEPLOY_HOST/module-template/rules.js"

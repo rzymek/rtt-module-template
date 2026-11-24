@@ -13,8 +13,9 @@
     "gen:map:area": "node tools/map/area/gen-map.ts",
     "edit:terrain": "node tools/terrain-editor.ts",
     "rename": "node tools/rename.ts",
+    "rename:local": "node tools/rename.ts --local",
     "test": "vitest",
-    "fuzz": "cd ../../server && bin/rtt-fuzz module-template"
+    "fuzz": "cd \"${RTT_DIR:?set RTT_DIR to the RTT server checkout}\" && bin/rtt-fuzz module-template"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",

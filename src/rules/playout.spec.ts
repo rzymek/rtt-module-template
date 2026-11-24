@@ -3,8 +3,8 @@ import path from "node:path"
 import {describe, expect, it} from "vitest"
 import {playRandomGames} from "@rzymek/rally-the-troops-module/testing"
 
-/** The built rules: `RTT_DIR=<dir> pnpm build` first. Skipped while there are none. */
-const rulesPath = path.resolve(process.env.RTT_DIR ?? "../../server", "public/module-template/rules.js")
+/** The built rules: `RTT_DIR=<server checkout> pnpm run build` first. Skipped while there are none. */
+const rulesPath = path.resolve(process.env.RTT_DIR ?? "../rally-the-troops", "public/module-template/rules.js")
 const games = Number(process.env.PLAYOUT_GAMES ?? 20)
 
 /** Random games have to come to an end: no state may leave the active player only actions that go nowhere. */

@@ -1,37 +1,45 @@
 # Rally the Troops module template
 
 A runnable starting point for a [Rally the Troops](https://rally-the-troops.com) module in TypeScript, built with Vite
-and tested with Vitest, on [`@rzymek/rally-the-troops-module`](../../rally-the-troops-module). It holds a tiny
+and tested with Vitest, on [`@rzymek/rally-the-troops-module`](https://github.com/rzymek/rally-the-troops-module). It holds a tiny
 placeholder game, "Module Template": two sides, three pieces each; move one space or attack an enemy next to it; a die
 roll per attack. The game is there to show the module's patterns once, in working code that the checks cover.
 
-To start a new module, follow [spec-template.md](spec-template.md): copy it to the new module as `spec.md` and fill
-it in. In short:
+To start a new module, create a repository from this one (or copy it without `.git` and `node_modules`), then:
 
 ```sh
-rsync -a --exclude .git --exclude node_modules module-template/ my-game/
-cd my-game && git init && pnpm install
-pnpm rename my-game "My Game" 12345      # id (the server's title_id), title, BGG id
+pnpm install
+pnpm rename my-game "My Game" 12345          # id (the server's title_id), title, BGG id
 ```
 
-The GitHub deploy workflow does nothing in the template (its job is `if: false`); `pnpm rename` turns it on.
+`pnpm rename` also writes `spec.md`, the instructions for Claude, from one of two templates (and deletes both):
 
-Then, in the first commit, delete the placeholder game and the map pipeline you don't need (see below).
+- `spec-template.md` (`pnpm rename`): for any machine, e.g. a claude.ai cloud environment: it clones the RTT server
+  from GitHub and refers only to public repositories;
+- `spec-template.local.md` (`pnpm rename:local`): for the template author's machine, with its local checkouts.
+
+Fill in the `<…>` left in `spec.md`. The GitHub workflow does nothing in the template (its job is `if: false`);
+`pnpm rename` turns it on: it then builds and checks every push, and deploys where the repository has the
+`DEPLOY_HOST` variable and the deploy secrets. Then, in the first commit, delete the placeholder game and the map
+pipeline you don't need (see below).
 
 ## Commands
 
-Node from nvm in bash: `PATH=/home/rzymek/.local/share/nvm/v24.15.0/bin:$PATH`.
+Node 24 or later, pnpm (`corepack enable`). `RTT_DIR` is a checkout of the RTT server
+(`git clone https://github.com/rzymek/rally-the-troops`, then `npm install` in it): the build goes into its
+`public/<id>`.
 
 | Command | |
 |---|---|
-| `RTT_DIR=../../server pnpm run build` | bundle into `$RTT_DIR/public/<id>`, then tsc, lint and tests (with the random playouts against the build) |
+| `pnpm run build` | bundle into `$RTT_DIR/public/<id>`, then tsc, lint and tests (with the random playouts against the build) |
 | `pnpm build:tsc`, `pnpm build:lint`, `CI=1 pnpm vitest run` | the checks one by one |
-| `pnpm fuzz` | the server's fuzzer; better: from the server, `timeout 180 env MAX_TIMEOUT=20000 bin/rtt-fuzz <id>`, then look for errors in `fuzzer/log-<id>.txt` |
+| `timeout 180 env MAX_TIMEOUT=20000 pnpm fuzz` | the server's fuzzer; then look for errors in `$RTT_DIR/fuzzer/log-<id>.txt` |
 | `pnpm gen:map` / `pnpm gen:map:area` | regenerate the map data and map.svg from the hex grid / the hand-drawn areas |
 | `pnpm edit:terrain` | the terrain editor, at http://localhost:8765 |
 | `pnpm exec rtt-rulebook resources/rules.pdf --title "My Game - Rules"` | the rules as an HTML page, in `public/info/` |
 
-To register the module with a local server once: `sqlite3 ../../server/db < public/title.sql`.
+To play it on a local server: `cd $RTT_DIR && sqlite3 db < schema.sql` (once), `sqlite3 db < public/<id>/title.sql`
+(once per module), `node server.js`, then http://localhost:8080/.
 
 ## Where things are
 

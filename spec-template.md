@@ -1,50 +1,76 @@
 # <GAME NAME> — Rally the Troops module
 
 <!--
-How to use this template: copy it to <new-module>/spec.md, fill in every <…>, delete what doesn't apply (e.g. the
-area map notes for a hex game). Lines starting with "> " are optional notes to keep or drop.
+How to use this template: `pnpm rename <id> "<GAME NAME>" <bgg id>` copies it to spec.md; fill in every <…> left
+there and delete what doesn't apply (e.g. the area map notes for a hex game). Lines starting with "> " are optional
+notes to keep or drop.
+
+This spec assumes nothing about the machine it runs on (e.g. a claude.ai cloud environment): only this repository
+and public repositories.
 -->
 
 ## Game
 
-- Name: <GAME NAME> (bgg: <id>), module id: <id> (lowercase, dashes: the server's title_id)
+- Name: <GAME NAME> (bgg: <id>), module id: <id> (the server's title_id)
 - Type: <block game | hex & counter | area movement | point-to-point>
 - Resources in @resources/: rules PDF, map image, counter images, etc.
-- Closest existing modules to learn from:
-  - ours (TypeScript, same structure): @../bobby-lee (blocks, hex; the most polished), @../marengo (areas drawn as
-    SVG), @../band-of-brothers (hex & counter, scenarios, LOS), @../googe-green (series rules + game data)
-  - official (@../../official-modules/, plain JS, different structure: for rules ideas only): <e.g. verdun (areas +
-    blocks), rommel-in-the-desert, hammer-of-the-scots (Columbia blocks)>
+- Learning from other modules (all public, read-only for you):
+  - this repository's own placeholder game, deleted in the first commit but kept in git history (the template's
+    commits): the reference for structure and conventions. Read it before deleting it.
+  - TypeScript modules on the same library: https://github.com/rzymek/rtt-lew-morski and
+    https://github.com/rzymek/rtt-pieklo-na-pacyfiku (hex & counter air games, written in Polish). They predate the
+    template: where they differ from it, follow the template.
+  - official modules, plain JavaScript with a different structure, for rules ideas only:
+    `https://git.rally-the-troops.com/modules/<name>`, e.g. <verdun (areas + blocks), rommel-in-the-desert,
+    hammer-of-the-scots (Columbia blocks)>.
 
 ## Starting point
 
-This project is a copy of @../module-template (a runnable placeholder game; see its README.md), renamed with
-`pnpm rename <id> "<GAME NAME>" <bgg id>`. In the first commit:
+This repository was created from the module template (see README.md) and renamed with `pnpm rename`. In the first
+commit:
 
 - delete the placeholder game: `src/rules/game/*` (but keep `map.ts` and `map-data.ts` as the pattern), the
-  placeholder states and their specs, the placeholder parts of `src/play/*`, `cover.png`;
+  placeholder states and their specs, the placeholder parts of `src/play/*`, `cover.png` (put the game's cover in
+  its place: `cover.jpg` or `cover.png`);
 - delete the map pipeline this game doesn't use (`tools/map/hex` or `tools/map/area`, and its spec), and make
   `pnpm gen:map` run the one kept (the template has `gen:map` for hexes and `gen:map:area` for areas);
 - keep the generic scaffolding: configs, globals, lifecycle, the specs for names/playouts/map, the tools.
 
 ## Environment
 
-- RTT server sources: /home/rzymek/devel/rtt/server, running at http://localhost:8080/.
-- Node (bash): `PATH=/home/rzymek/.local/share/nvm/v24.15.0/bin:$PATH`.
-- Deploy: `RTT_DIR=/home/rzymek/devel/rtt/server pnpm run build` — bundles, then runs tsc, lint and the tests,
-  including the random playouts against the new build. The server picks it up at once.
+Set it up at the start of every session (nothing is kept between sessions but the repository):
+
+```sh
+# Node 24 or later, pnpm through corepack
+corepack enable
+pnpm install
+# The RTT server: the build goes into its public/ directory, the fuzzer and random playouts run from there.
+git clone --depth 1 https://github.com/rzymek/rally-the-troops ../rally-the-troops
+(cd ../rally-the-troops && npm install)
+export RTT_DIR="$(cd ../rally-the-troops && pwd)"
+```
+
+- Build: `pnpm run build` (needs `RTT_DIR`) — bundles into `$RTT_DIR/public/<id>`, then runs tsc, lint and the
+  tests, including the random playouts against the new build.
 - Checks one by one: `pnpm build:tsc`, `pnpm build:lint`, `CI=1 pnpm vitest run`.
-- Fuzz: from the server dir, `timeout 180 env MAX_TIMEOUT=20000 bin/rtt-fuzz <id>`, then grep
-  `fuzzer/log-<id>.txt` for errors (the default 250 ms timeout gives false failures; it runs forever).
-- Shared code: `@rzymek/rally-the-troops-module` (/home/rzymek/devel/rtt/rally-the-troops-module). Use what it has
-  (see its README) instead of writing your own. Generic code worth sharing goes there; you can freely contribute
-  to it (tests and a README section with each addition); mention what you moved.
-- Docs (spec, PLAN.md, NOTES.md) are local Markdown files in the repo.
+- Fuzz: `timeout 180 env MAX_TIMEOUT=20000 pnpm fuzz`, then grep `$RTT_DIR/fuzzer/log-<id>.txt` for errors; the
+  failing games are saved as `$RTT_DIR/fuzzer/<id>-*.json`. It runs until `timeout` stops it, so its exit status is
+  an error; the default 250 ms MAX_TIMEOUT gives false failures.
+- To see the game, run the server (`cd $RTT_DIR && sqlite3 db < schema.sql && sqlite3 db < public/<id>/title.sql &&
+  node server.js`, http://localhost:8080/) — only if the environment can show it; I verify on my own machine.
+- Shared code: `@rzymek/rally-the-troops-module` from npm. Read its README
+  (`node_modules/@rzymek/rally-the-troops-module/README.md`) and use what it has instead of writing your own. Its
+  source is https://github.com/rzymek/rally-the-troops-module, read-only for you: put generic code in this module,
+  and list it in NOTES.md under "Library candidates" (what, where, why it is generic).
+- The server's docs: `$RTT_DIR/docs` (e.g. `docs/overview/module.md`).
+- Docs (spec, PLAN.md, NOTES.md) are Markdown files in this repository.
+- Work on the branch you are given; commit and push it after each step.
 
 ## Step 0 — read and plan (no game code yet)
 
-1. Extract the rules to `resources/rules.txt` (`pdftotext -layout`) and commit it, so later sessions can grep it.
-   Generate the rules page: `pnpm exec rtt-rulebook resources/rules.pdf --title "<GAME NAME> - Rules"`.
+1. Extract the rules to `resources/rules.txt` (`pdftotext -layout`, from poppler-utils) and commit it, so later
+   sessions can grep it. Generate the rules page: `pnpm exec rtt-rulebook resources/rules.pdf --title "<GAME NAME> -
+   Rules"` (needs poppler-utils and Ghostscript; if they can't be installed, tell me and I'll generate it).
 2. Write `PLAN.md` (format below): the rule sections grouped into small implementation steps, in order (set-up +
    basic movement first, victory and scenarios last), each with a one-line "how to verify in the UI".
 3. List the rules questions you already see (ambiguities, component counts that don't match, missing data) as
@@ -54,7 +80,7 @@ This project is a copy of @../module-template (a runnable placeholder game; see 
      (one closed straight-line path per area, shared borders snapped; ids matching the printed names, labels as
      the names to show). `pnpm gen:map` generates the map data from it.
    - Hex map: measure the grid into `tools/map/hex/grid.ts`; ask me about borderline partial hexes at the map's
-     edges (they are usually playable). Detect what terrain you can from the image, then let me correct it in the
+     edges (they are usually playable). Detect what terrain you can from the image, then I correct it in the
      editor (below).
 5. Stop and wait for my answers.
 
@@ -66,7 +92,7 @@ For each step in PLAN.md:
    code branches.
 2. Add vitest specs for the rule logic (legal moves, edge cases, the questions I answered).
 3. Run the checks and the fuzzer; fix everything they find.
-4. Deploy, commit locally (one commit per step, message names the rule numbers).
+4. Commit (one commit per step, message names the rule numbers) and push.
 5. Update `PLAN.md` (status) and `NOTES.md` (see below).
 6. **Stop** after steps that change how the game plays (marked STOP in PLAN.md); batch the rest (data fixes, UI
    polish, refactors) and carry on. At each stop, ask me to verify with a short checklist covering everything since
@@ -87,6 +113,9 @@ A status legend (`[ ]` todo, `[~]` in progress, `[x]` done), the scope (what is 
 | 2 | [ ] **Map** — … | 2.0 | Terrain overlay matches the printed map. |
 | 3 | [ ] … | … | **STOP** — … |
 
+End it with a "Resume" section: the current step and what to do next, kept up to date. A new session has nothing
+else to go on: "continue" means read spec.md, PLAN.md and NOTES.md, set up the environment, and carry on from there.
+
 ## NOTES.md (in the repo, committed)
 
 - Decisions: what I confirmed, with the date.
@@ -95,10 +124,8 @@ A status legend (`[ ]` todo, `[~]` in progress, `[x]` done), the scope (what is 
   turns), and why.
 - Map/component data: where it comes from, how to regenerate or correct it.
 - Undo: when undo is cleared (dice, hidden information revealed, hand-off to the other player).
+- Library candidates: generic code that could move to `@rzymek/rally-the-troops-module`.
 - Not implemented: and why.
-
-Keep session-only state (current step, how to resume) in Claude memory too, so "continue" in a fresh session picks
-up at the right step.
 
 ## Conventions (as in the template)
 
@@ -106,7 +133,8 @@ up at the right step.
   Sub-procedures with `call(name, env)` / `end(result)`, the caller's `_resume` reading `L.$`. What a state needs
   only while it runs lives in its `L` (typed with a `scope()` helper), not in `G`. The first state is entered with
   `call` (in on_setup), then `goto`.
-- Top-level names must not clash with framework.js (`log`, `action`, `finish`, `resume`, …): `names.spec.ts` checks.
+- Top-level names must not clash with the framework's (`log`, `action`, `finish`, `resume`, …): `names.spec.ts`
+  checks.
 - The rules and the client share types only. Constants or code both bundles import at runtime break rules.js:
   give the client its own copy (or generate it).
 - Options: checkboxes in `create.html`, read with `normalizeOptions()` in on_setup.
@@ -143,12 +171,14 @@ up at the right step.
 - `pnpm gen:map` — regenerate the map data and map.svg from the sources; `map.spec.ts` fails when they are stale.
 - `pnpm edit:terrain` — the terrain editor (http://localhost:8765) over the map: every terrain layer of
   `tools/map/layers.ts` (spaces, borders/hexsides, named places, set-up and entry areas, …) can be marked there.
-  What can be detected from the image is detected by a tool, but every kind of feature must be reviewable and
-  correctable in the editor; never type terrain into the game's code by hand. Tell me when there's something for
-  me to mark.
+  I run it on my machine. What can be detected from the image is detected by a tool, but every kind of feature must
+  be reviewable and correctable in the editor; never type terrain into the game's code by hand. Tell me when
+  there's something for me to mark, and pull `tools/map/*/terrain.json` (and the regenerated files) when I've
+  pushed it.
 
 ## Ask me for
 
 - The areas SVG (area maps), or corrections to it.
 - Terrain marking with the editor.
+- The rulebook page, if the PDF tools can't be installed.
 - Any rule reading that changes how the game plays.
