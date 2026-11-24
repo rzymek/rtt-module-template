@@ -14,6 +14,8 @@ cd my-game && git init && pnpm install
 pnpm rename my-game "My Game" 12345      # id (the server's title_id), title, BGG id
 ```
 
+The GitHub deploy workflow does nothing in the template (its job is `if: false`); `pnpm rename` turns it on.
+
 Then, in the first commit, delete the placeholder game and the map pipeline you don't need (see below).
 
 ## Commands
